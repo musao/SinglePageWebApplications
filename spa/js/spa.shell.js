@@ -60,5 +60,8 @@ spa.shell = (function () {
         $container.html( configMap.main_html );
         setJqueryMap();
     };
+    // パブリックメソッド/initModule/終了
+    
+    return { initModule : initModule };
     //---------------- パブリックメソッド終了 --------------------
 }());
