@@ -123,7 +123,11 @@ spa.shell = (function () {
 
     //---------------- イベントハンドラ開始 --------------------
     onClickChat = function ( event ) {
-        toggleChat( stateMap.is_chat_retracted );
+        if ( toggleChat( stateMap.is_chat_retracted ) ) {
+            $.uriAnchor.setAnchor({
+                chat : ( stateMap.is_chat_retracted ? 'open' : 'closed' )
+            });
+        }
         return false;
     };
     //---------------- イベントハンドラ終了 --------------------
