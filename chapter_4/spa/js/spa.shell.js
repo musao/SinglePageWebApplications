@@ -262,17 +262,21 @@ spa.shell = (function () {
         stateMap.$container = $container;
         $container.html( configMap.main_html );
         setJqueryMap();
-
-        // 我々のスキーマを使うようにuriAnchorを設定する
-        $.uriAnchor.configModule({
-            schema_map : configMap.anchor_schema_map
-        });
         
         // チャットスライダーを初期化し、クリックハンドラをバインドする
         stateMap.is_chat_retracted = true;
         jqueryMap.$chat
             .attr( 'title', configMap.chat_retracted_title )
             .click( onClickChat );
+
+        // 我々のスキーマを使うようにuriAnchorを設定する
+        $.uriAnchor.configModule({
+            schema_map : configMap.anchor_schema_map
+        });
+
+        // 機能モジュールを構成して初期化する
+        spa.chat.configModule( {} );
+        spa.chat.initModule( jqueryMap.$chat );
         
         // URIアンカー変更イベントを処理する。
         // これはすべての機能モジュールを設定して初期化した後に行う。
