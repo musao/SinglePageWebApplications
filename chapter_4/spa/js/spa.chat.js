@@ -147,23 +147,23 @@ spa.chat = (function () {
         switch ( position_type ) {
             case 'opened' :
                 height_px = stateMap.slider_opened_px;
-                animate_time = stateMap.slider_open_time;
-                slider_title = stateMap.slider_opened_title;
+                animate_time = configMap.slider_open_time;
+                slider_title = configMap.slider_opened_title;
                 toggle_text = '=';
             break;
 
             case 'hidden' :
                 height_px = 0;
-                animate_time = stateMap.slider_open_time;
+                animate_time = configMap.slider_open_time;
                 slider_title = '';
                 toggle_text = '+';
             break;
             
             case 'closed' :
                 height_px = stateMap.slider_closed_px;
-                animate_time = stateMap.slider_close_time;
-                slider_title = stateMap.slider_closed_title;
-                toggle_text = '';
+                animate_time = configMap.slider_close_time;
+                slider_title = configMap.slider_closed_title;
+                toggle_text = '+';
             break;
 
             //未知のposition_typeに対処する
@@ -192,10 +192,10 @@ spa.chat = (function () {
     onClickToggle = function ( event ) {
         var set_chat_anchor = configMap.set_chat_anchor;
         if ( stateMap.position_type === 'opened' ) {
-            set_chat_anchor = ( 'closed' );
+            set_chat_anchor( 'closed' );
         }
         else if ( stateMap.position_type === 'closed' ) {
-            set_chat_anchor = ( 'opened' );
+            set_chat_anchor( 'opened' );
         }
         return false;
     };
