@@ -71,7 +71,8 @@ spa.chat = (function () {
         jqueryMap = {},
 
         setJqueryMap, getEmSize, setPxSizes, setSliderPosition,
-        onClickToggle, configModule, initModule
+        onClickToggle, configModule, initModule,
+        removeSlider, handleResize
         ;
     //---------------- モジュールスコープ変数終了 --------------
 
@@ -262,7 +263,9 @@ spa.chat = (function () {
     return {
         setSliderPosition  : setSliderPosition,
         configModule       : configModule,
-        initModule         : initModule
+        initModule         : initModule,
+        removeSlider       : removeSlider,
+        handleResize       : handleResize
     };
     //---------------- パブリックメソッド終了 --------------------
 }());
