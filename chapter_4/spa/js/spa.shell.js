@@ -244,8 +244,7 @@ spa.shell = (function () {
             chat_model         : spa.model.chat,
             people_model       : spa.model.people
         } );
-        // pass the dedicated chat container so spa.chat appends into the shell chat area
-        spa.chat.initModule( jqueryMap.$chat );
+        spa.chat.initModule( jqueryMap.$container );
         
         // URIアンカー変更イベントを処理する。
         // これはすべての機能モジュールを設定して初期化した後に行う。
