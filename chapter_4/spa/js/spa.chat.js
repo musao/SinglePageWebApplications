@@ -259,6 +259,34 @@ spa.chat = (function () {
     };
     // パブリックメソッド/initModule/終了
 
+    // パブリックメソッド/removeSlider/開始
+    // 目的：
+    //  * DOM要素chatSliderを削除する
+    //  * 初期状態に戻す
+    //  * コールバックや他のデータへのポインタを削除する
+    // 引数：なし
+    // 戻り値：true
+    // 例外発行：なし
+    //
+    removeSlider = function () {
+        // 初期化と状態を解除する
+        // DOMコンテナを削除する。これはイベントのバインディングも削除する。
+        if ( jqueryMap.$slider ) {
+            jqueryMap.$slider.remove();
+            jqueryMap = {};
+        }
+        stateMap.$append_target   = null;
+        stateMap.position_type    = 'closed';
+
+        // 主な構成を解除する
+        configMap.chat_model      = null;
+        configMap.people_model    = null;
+        configMap.set_chat_anchor = null;
+
+        return true;
+    };
+    // パブリックメソッド/removeSlider/終了
+
     // パブリックメソッドを返す
     return {
         setSliderPosition  : setSliderPosition,
