@@ -50,8 +50,10 @@ spa.chat = (function () {
 
             slider_open_time        : 250,
             slider_close_time       : 250,
-            slider_opened_em        : 16,
+            slider_opened_em        : 18,
             slider_closed_em        : 2,
+            slider_opened_min_em    : 10,
+            window_height_min_em    : 20,
             slider_opened_title     : 'Click to close',
             slider_closed_title     : 'Click to open',
 
@@ -106,12 +108,18 @@ spa.chat = (function () {
 
     // DOMメソッド/setPxSizes/開始
     setPxSizes = function () {
-        var px_per_em, opened_height_em;
+        var px_per_em, window_height_em, opened_height_em;
         px_per_em = getEmSize( jqueryMap.$slider.get(0) );
+        window_height_em = Math.floor(
+            ( $(window).height() / px_per_em ) + 0.5
+        );
 
-        opened_height_em = configMap.slider_opened_em;
+        opened_height_em
+            = window_height_em > configMap.window_height_min_em
+            ? configMap.slider_opened_em
+            : configMap.slider_opened_min_em;
 
-        stateMap.px_per_em = px_per_em;
+        stateMap.px_per_em        = px_per_em;
         stateMap.slider_closed_px = configMap.slider_closed_em * px_per_em;
         stateMap.slider_opened_px = opened_height_em * px_per_em;
         jqueryMap.$sizer.css({
@@ -286,6 +294,29 @@ spa.chat = (function () {
         return true;
     };
     // パブリックメソッド/removeSlider/終了
+
+    // パブリックメソッド/handleResize/開始
+    // 目的：
+    //   ウィンドウリサイズイベントに対し、必要に応じてこのモジュールが提供する表示を調整する
+    // 動作：
+    //   ウィンドウの高さや幅が所定の閾値を下回ったら、
+    //   縮小したウィンドウサイズに合わせてチャットスライダーのサイズを変更する。
+    // 戻り値：プール値
+    //  * false -リサイズを考慮していない
+    //  * true -リサイズを考慮した
+    // 例外発行：なし
+    //
+    handleResize = function () {
+        //スライダーコンテナがなければ何もしない
+        if ( ! jqueryMap.$slider ) { return false; }
+
+        setPxSizes();
+        if ( stateMap.position_type === 'opened' ) {
+            jqueryMap.$slider.css({ height : stateMap.slider_opened_px });
+        }
+        return true;
+    };
+    // パブリックメソッド/handleResize/終了
 
     // パブリックメソッドを返す
     return {
